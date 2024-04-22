@@ -146,6 +146,8 @@ def collector(pkt):
         # 新增端口之后还需要重新解析数据包
         pkt = Ether(pkt.do_build())
         tcp_layer = pkt.getlayer('TCP')
+        if tcp_layer is None:
+            return
         layer = get_attr(tcp_layer[0], 'msg')
         if not layer:
             # 一顿操作之后还是为空的话就舍弃
